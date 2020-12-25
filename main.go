@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"os"
 	"sync"
 	"time"
 
+	"github.com/julienschmidt/httprouter"
 	"github.com/kardianos/service"
 )
 
@@ -45,9 +48,17 @@ func (p program) Stop(s service.Service) error {
 }
 
 func (p program) run() {
-	for serviceIsRunning {
-		fmt.Println("Service is running")
-		time.Sleep(1 * time.Second)
+	router := httprouter.New()
+
+	router.ServeFiles("/js/*filepath", http.Dir("js"))
+	router.ServeFiles("/css/*filepath", http.Dir("css"))
+
+	router.GET("/", serveHomepage)
+
+	err := http.ListenAndServe(":81", router)
+	if err != nil {
+		fmt.Println("Problem starting web server: " + err.Error())
+		os.Exit(-1)
 	}
 }
 
