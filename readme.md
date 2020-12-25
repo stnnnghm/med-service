@@ -6,7 +6,7 @@ This project will be completed in several iterations. The steps are to be comple
 1. **Create the Service**
 2. **Improve the Service**
 3. **Upgrade for Web**
-4. Add SSE
+4. **Add SSE - _Server Side Events_**
 5. Simple JS Frontend
 6. Frontend-Backend Comms
 7. Server-Side Logging
